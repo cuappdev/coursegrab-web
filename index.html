@@ -11,6 +11,47 @@
         Hello World.
     </div>
     <script>
+        let baseUrl = "https://coursegrab-backend.cornellappdev.com"
+        let urls = {
+            session: {
+                update: "/api/session/update/", // Post
+                init: "/api/session/initialize/", // Post
+            },
+            user: {
+                tracking: "/api/users/tracking/", // Get
+                token: "/api/users/device-token/", // Post
+                notification: "/api/users/notification/", // Post
+            },
+            section: {
+                track: "/api/sections/track/", // Post
+                untrack: "/api/sections/untrack/", // Post
+            },
+            course: {
+                search: "/api/courses/search/", // Post
+            },
+        }
+
+        // {
+        //   "token": "<TOKEN received from Google>",
+        //   "is_ios": true
+        // }
+        function initSession(token) {
+            let endpoint = baseUrl + urls.session.init;
+            let body = {
+                token: "",
+                is_ios: false,
+            };
+            fetch(endpoint, {
+                method: "post",
+                body: JSON.stringify(body)
+            }).then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                console.log(data);
+            });
+            // let data = await d3.json(baseUrl + urls.session.init)
+        }
+        initSession()
     </script>
 </body>
 
