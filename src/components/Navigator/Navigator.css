@@ -1,0 +1,12 @@
+.header-view {
+  background-color: #222;
+  height: 50px;
+  margin: 0;
+}
+
+.header-view a {
+  font-weight: bold;
+  color: #EEE;
+  text-decoration: none;
+  padding: 15px;
+}
