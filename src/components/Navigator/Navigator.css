@@ -1,12 +1,29 @@
-.header-view {
+.nav-view {
+  top: 0;
+  position: fixed;
   background-color: #222;
-  height: 50px;
-  margin: 0;
+  width: 100%;
+  display: inline-block;
+  padding: 15px;
 }
 
-.header-view a {
+.nav-view a {
   font-weight: bold;
   color: #EEE;
   text-decoration: none;
-  padding: 15px;
+}
+
+.nav-view a:hover {
+  opacity: 0.8;
+}
+
+.nav-left {
+  float: left;
+  font-size: 18px;
+}
+
+.nav-right {
+  float: right;
+  font-size: 14px;
+  padding-right: 15px;
 }

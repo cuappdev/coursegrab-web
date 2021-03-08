@@ -3,7 +3,7 @@
   background-color: #222;
   color: #EEE;
   margin: auto;
-  position: absolute;
+  position: fixed;
   width: 100%;
   font-size: 14px;
 }
