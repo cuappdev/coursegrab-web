@@ -1,0 +1,19 @@
+.footer {
+  bottom: 0;
+  background-color: #222;
+  color: #EEE;
+  margin: auto;
+  position: fixed;
+  width: 100%;
+  font-size: 14px;
+}
+
+.footer a {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.footer p {
+  padding: 10px 0;
+  margin: 0;
+}
