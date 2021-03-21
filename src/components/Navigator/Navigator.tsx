@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import './Navigator.css';
+import './Navigator.css'
 
 class Navigator extends React.Component {
   render() {
@@ -11,8 +11,8 @@ class Navigator extends React.Component {
           <a className="nav-right" href="/">Sign In</a>
         </div>
       </div>
-    );
-  };
+    )
+  }
 }
 
 export default Navigator;

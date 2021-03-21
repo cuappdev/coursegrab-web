@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import './TrackedCoursesView.css';
+import './TrackedCoursesView.css'
 
 class TrackedCoursesView extends React.Component {
   render() {
@@ -12,8 +12,8 @@ class TrackedCoursesView extends React.Component {
         <p className="tracking-title-label">No Courses Currently Tracked</p>
         <p className="tracking-subtitle-label">Tap the search icon to start adding courses</p>
       </div>
-    );
-  };
+    )
+  }
 }
 
-export default TrackedCoursesView;
+export default TrackedCoursesView
