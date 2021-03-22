@@ -1,7 +1,7 @@
 .nav-view {
   top: 0;
   position: fixed;
-  background-color: #222;
+  background-color: black;
   width: 100%;
   display: inline-block;
   padding: 15px;
@@ -9,7 +9,7 @@
 
 .nav-view a {
   font-weight: bold;
-  color: #EEE;
+  color: white;
   text-decoration: none;
 }
 
@@ -24,6 +24,6 @@
 
 .nav-right {
   float: right;
-  font-size: 14px;
+  font-size: 18px;
   padding-right: 15px;
 }

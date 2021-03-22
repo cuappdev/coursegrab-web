@@ -1,3 +1,15 @@
 .tracked-courses-view {
-  margin: 0 30px;
+  text-align: center;
+  margin: 100px 0;
+}
+
+.tracking-title-label {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.tracking-subtitle-label {
+  font-weight: 500;
+  font-size: 16px;
+  color: #9EA7B3;
 }
