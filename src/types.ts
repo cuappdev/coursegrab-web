@@ -11,7 +11,7 @@ export interface Section {
     isTracking: boolean
     mode: string
     numTracking: number
-    section: number
+    section: string
     status: Status
     subjectCode: string
     title: string
