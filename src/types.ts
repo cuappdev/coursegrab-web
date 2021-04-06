@@ -17,6 +17,11 @@ export interface Section {
     title: string
 }
 
+export interface CourseQuery {
+    courses: Course[]
+    query: string
+}
+
 export interface Course {
     courseNum: number
     subjectCode: string
