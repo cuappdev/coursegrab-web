@@ -29,7 +29,7 @@ class SearchView extends React.Component {
   getCourses = async (query: string) => {
     if (this.state.searchText.length > 2) {
       try {
-        const searchResult: CourseQuery = await searchCourses(query)
+        const searchResult = await searchCourses(query)
         if (this.state.searchText == searchResult.query) {
           this.setState({ courses: searchResult.courses.slice(0, 10) })
         }

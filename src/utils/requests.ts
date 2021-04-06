@@ -25,7 +25,7 @@ const get = async (url: string, headers?: any, params?: any) => {
     throw Error(data)
 }
 
-const post = async (url: string, body?: any, headers?: any,) => {
+const post = async (url: string, body?: any, headers?: any) => {
     const res = await api.post(url, body, headers)
     const { success, data } = res.data
     if (success) return data
