@@ -2,20 +2,19 @@ import React from 'react'
 
 import './SearchView.css'
 
-import {
-  searchCourses
-} from '../../utils/requests';
+import { searchCourses } from '../../utils/requests';
+
+import { Course, CourseQuery } from '../../types';
+
+type SearchViewState = {
+  searchText: string
+  courses: Course[]
+}
 
 class SearchView extends React.Component {
-  state = {
+  state: SearchViewState = {
     searchText: '',
-    courses: [
-      'INFO 1300 : Introduction to Web Design',
-      'INFO 4250 : Surveillance and Privacy',
-      'INFO 3450 : Human-Computer Interaction',
-      'INFO 3450 : Human-Computer Interaction',
-      'INFO 3450 : Human-Computer Interaction'
-    ]
+    courses: []
   }
 
   searchIcon = (width: number, height: number) => {
@@ -29,9 +28,15 @@ class SearchView extends React.Component {
 
   getCourses = async (query: string) => {
     if (this.state.searchText.length > 2) {
-      await searchCourses(query)
+      try {
+        const searchResult = await searchCourses(query)
+        if (this.state.searchText == searchResult.query) {
+          this.setState({ courses: searchResult.courses.slice(0, 10) })
+        }
+      } catch (err) {
+        console.log(err)
+      }
     }
-    // console.log(searchCourses(query))
   }
 
   render() {
@@ -39,7 +44,7 @@ class SearchView extends React.Component {
       return (
         <div className="search-result">
           {this.searchIcon(16, 16)}
-          <p className="result-text">{course}</p>
+          <p className="result-text">{`${course.subjectCode} ${course.courseNum}: ${course.title}`}</p>
         </div>
       )
     })
@@ -51,7 +56,7 @@ class SearchView extends React.Component {
             value={this.state.searchText}
             onChange={(event) => {
               this.setState({ searchText: event.target.value })
-              this.getCourses(this.state.searchText)
+              this.getCourses(event.target.value)
             }
             } />
         </div>

@@ -1,12 +1,22 @@
+import { AxiosResponse } from 'axios';
 import { hostUrl } from './constants';
 import { camelizeKeys, decamelizeKeys } from 'humps'
 
 const axios = require('axios').default
 
 const api = axios.create({
-    baseURL: hostUrl + '/api/',
-    withCredentials: true
+    baseURL: hostUrl + '/api/'
 })
+
+api.interceptors.response.use((response: AxiosResponse) => {
+    if (
+        response.data &&
+        response.headers['content-type'] === 'application/json'
+    ) {
+        response.data = camelizeKeys(response.data);
+    }
+    return response;
+});
 
 const get = async (url: string, headers?: any, params?: any) => {
     const res = await api.get(url, headers, params)
@@ -15,8 +25,8 @@ const get = async (url: string, headers?: any, params?: any) => {
     throw Error(data)
 }
 
-const post = async (url: string, headers?: any, body?: any) => {
-    const res = await api.post(url, headers, body)
+const post = async (url: string, body?: any, headers?: any) => {
+    const res = await api.post(url, body, headers)
     const { success, data } = res.data
     if (success) return data
     throw Error(data)
@@ -36,8 +46,8 @@ export const updateSession = async () => { }
 export const getAllTrackedSections = async () => { }
 
 export const searchCourses = async (query: string) => {
-    const data = await post(`/courses/search/`, {}, { query: query });
-    return data;
+    const data = await post(`/courses/search/`, { query: query })
+    return data
 }
 
 export const trackSection = async () => { }
