@@ -16,19 +16,19 @@ const TrackedCourseCard: React.FunctionComponent<TrackedCourseCardProps> = ({
     switch (status) {
       case Status.OPEN:
         return (
-          <svg height="16" width="16">
+          <svg className="status-icon" height="16" width="16">
             <circle cx="8" cy="8" r="8" fill="#47C753" />
           </svg>
         )
       case Status.CLOSED:
         return (
-          <svg height="16" width="16">
+          <svg className="status-icon" height="16" width="16">
             <rect width="16" height="16" fill="#CA4238" />
           </svg>
         )
       case Status.WAITLISTED:
         return (
-          <svg height="16" width="16">
+          <svg className="status-icon" height="16" width="16">
             <polygon points="0,16 8,0 16,16" fill="#FFD027" />
           </svg>
         )
@@ -37,13 +37,23 @@ const TrackedCourseCard: React.FunctionComponent<TrackedCourseCardProps> = ({
   }
   return (
     <div className="tracked-course-card" >
-      {statusIcon(section.status)}
-      <h3>{section.title}</h3 >
-      <p>{section.section}</p>
-      <p>{section.catalogNum}</p>
-      <p>{section.mode}</p>
-      <button>Remove</button>
-      <button>Enroll</button>
+      <div className="title-status-view">
+        <p className="title-label">{section.title}</p>
+        {statusIcon(section.status)}
+      </div>
+      <div className="course-info-view">
+        <p className="section-label">{section.section}</p>
+        <p className="catalog-num-label">{section.catalogNum}</p>
+        <p className="mode-label">{section.mode}</p>
+      </div>
+      <div className="action-buttons">
+        <button className="remove-button" >REMOVE</button>
+        {
+          section.status === Status.OPEN
+            ? <button className="enroll-button">ENROLL</button>
+            : null
+        }
+      </div>
     </div >
   )
 }
