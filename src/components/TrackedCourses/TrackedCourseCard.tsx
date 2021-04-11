@@ -11,7 +11,6 @@ export interface TrackedCourseCardProps {
 const TrackedCourseCard: React.FunctionComponent<TrackedCourseCardProps> = ({
   section
 }) => {
-
   const statusIcon = (status: Status) => {
     switch (status) {
       case Status.OPEN:
@@ -33,7 +32,6 @@ const TrackedCourseCard: React.FunctionComponent<TrackedCourseCardProps> = ({
           </svg>
         )
     }
-
   }
   return (
     <div className="tracked-course-card" >
@@ -57,7 +55,5 @@ const TrackedCourseCard: React.FunctionComponent<TrackedCourseCardProps> = ({
     </div >
   )
 }
-
-
 
 export default TrackedCourseCard
