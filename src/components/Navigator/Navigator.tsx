@@ -20,14 +20,14 @@ class Navigator extends React.Component {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(async (result) => {
+      .then(async result => {
         var credential = result.credential as firebase.auth.OAuthCredential
         var token = credential.accessToken
         var user = result.user
         // TODO: Initialize user session
         this.setState({ isSignedIn: true })
       })
-      .catch((error) => {
+      .catch(error => {
         var errorCode = error.code
         var errorMessage = error.message
         var email = error.email
@@ -45,7 +45,7 @@ class Navigator extends React.Component {
       <div className="nav-view">
         <div className="container">
           <a className="nav-left" href="/">CourseGrab</a>
-          <a className="nav-right" onClick={() => this.state.isSignedIn ? this.signOut() : this.openSigninPopup()}> {this.state.isSignedIn ? `Sign Out` : `Sign In`}</a>
+          <a className="nav-right" onClick={ () => this.state.isSignedIn ? this.signOut() : this.openSigninPopup() }> {this.state.isSignedIn ? "Sign Out" : "Sign In"}</a>
         </div>
       </div>
     )

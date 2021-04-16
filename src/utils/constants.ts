@@ -12,6 +12,6 @@ const firebaseConfig = {
 }
 
 export {
-    hostUrl,
-    firebaseConfig,
+  firebaseConfig,
+  hostUrl,
 }
