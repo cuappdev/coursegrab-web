@@ -1,7 +1,7 @@
 export enum Status {
-    CLOSED,
-    OPEN,
-    WAITLISTED
+    CLOSED = "CLOSED",
+    OPEN = "OPEN",
+    WAITLISTED = "WAITLISTED"
 }
 
 export interface Section {
@@ -15,6 +15,10 @@ export interface Section {
     status: Status
     subjectCode: string
     title: string
+}
+
+export interface Sections {
+    sections: Section[]
 }
 
 export interface CourseQuery {
