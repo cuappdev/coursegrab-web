@@ -43,10 +43,7 @@ export const initializeSession = async () => { }
 
 export const updateSession = async () => { }
 
-export const getAllTrackedSections = async () => {
-    const data = await get(`/users/tracking/`)
-    return data
-}
+export const getAllTrackedSections = async () => await get(`/users/tracking/`)
 
 export const searchCourses = async (query: string) => {
     const data = await post(`/courses/search/`, { query: query })
