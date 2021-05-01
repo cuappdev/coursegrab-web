@@ -2,52 +2,39 @@ import React from 'react'
 
 import './TrackedCoursesView.css'
 
-import { Section, Status } from '../../types'
+import { getAllTrackedSections } from '../../utils/requests';
+
+import { Section, Sections, Status } from '../../types'
 
 import TrackedCourseCard from './TrackedCourseCard'
 
+type TrackedCoursesViewState = {
+  availableSections: Section[]
+  awaitingSections: Section[]
+}
+
 class TrackedCoursesView extends React.Component {
-  state = {
-    availableSections: [
-      {
-        catalogNum: 1111,
-        courseNum: 1000,
-        instructors: [],
-        isTracking: true,
-        mode: 'Asynchronous',
-        numTracking: 5,
-        section: 'LEC 001 / TR 12:20pm - 1:10pm',
-        status: Status.OPEN,
-        subjectCode: 'INFO',
-        title: 'INFO 1300: Introduction to Web Design'
-      }
-    ],
-    awaitingSections: [
-      {
-        catalogNum: 1000,
-        courseNum: 1000,
-        instructors: [],
-        isTracking: true,
-        mode: 'Asynchronous',
-        numTracking: 5,
-        section: 'LEC 001 / TR 12:20pm - 1:10pm',
-        status: Status.WAITLISTED,
-        subjectCode: 'INFO',
-        title: 'INFO 1300: Introduction to Web Design'
-      },
-      {
-        catalogNum: 1234,
-        courseNum: 1000,
-        instructors: [],
-        isTracking: true,
-        mode: 'Asynchronous',
-        numTracking: 5,
-        section: 'LEC 001 / TR 12:20pm - 1:10pm',
-        status: Status.CLOSED,
-        subjectCode: 'INFO',
-        title: 'INFO 1300: Introduction to Web Design'
-      }
-    ]
+  state: TrackedCoursesViewState = {
+    availableSections: [],
+    awaitingSections: []
+  }
+
+  componentDidMount() {
+    this.getTrackedSections()
+  }
+
+  getTrackedSections = async () => {
+    try {
+      const data: Sections = await getAllTrackedSections()
+      const available = data.sections.filter(section => section.status === Status.OPEN)
+      const awaiting = data.sections.filter(section => section.status !== Status.OPEN)
+      this.setState({
+        availableSections: available,
+        awaitingSections: awaiting
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   render() {

@@ -19,7 +19,7 @@ api.interceptors.response.use((response: AxiosResponse) => {
 });
 
 const get = async (url: string, headers?: any, params?: any) => {
-    const res = await api.get(url, headers, params)
+    const res = await api.get(url, params, headers)
     const { success, data } = res.data
     if (success) return data
     throw Error(data)
@@ -43,7 +43,7 @@ export const initializeSession = async () => { }
 
 export const updateSession = async () => { }
 
-export const getAllTrackedSections = async () => { }
+export const getAllTrackedSections = async () => await get(`/users/tracking/`)
 
 export const searchCourses = async (query: string) => {
     const data = await post(`/courses/search/`, { query: query })
