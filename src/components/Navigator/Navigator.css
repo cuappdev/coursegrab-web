@@ -1,4 +1,5 @@
 .nav-view {
+  text-align: center;
   top: 0;
   position: fixed;
   background-color: black;
@@ -18,12 +19,24 @@
 }
 
 .nav-left {
+  height: 30px;
   float: left;
   font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.coursegrab-text {
+  padding: 5px 15px;
 }
 
 .nav-right {
+  height: 30px;
   float: right;
   font-size: 18px;
   padding-right: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
