@@ -1,6 +1,10 @@
 .tracked-courses-view {
-  text-align: center;
+  text-align: left;
   margin: 60px 0;
+}
+
+.no-tracked-course {
+  text-align: center;
 }
 
 .tracking-title-label {
@@ -15,17 +19,26 @@
 }
 
 .num-available-label {
-  width: 60%;
+  width: 80%;
   color: #47C753;
   font-weight: 600;
   font-size: 24px;
+  padding-left: 30px;
   margin: 10px auto;
 }
 
 .num-awaiting-label {
-  width: 60%;
+  width: 80%;
   color: #050505;
   font-weight: 600;
   font-size: 24px;
+  padding-left: 30px;
   margin: 30px auto 10px auto;
+}
+
+.all-tracked-courses {
+  margin: auto;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
 }

@@ -49,18 +49,20 @@ class TrackedCoursesView extends React.Component {
       )
     })
     const sections = () => {
-      if (this.state.availableSections.length > 0 && this.state.awaitingSections.length > 0) {
+      if (this.state.availableSections.length > 0 || this.state.awaitingSections.length > 0) {
         return (
           <div>
             <p className="num-available-label">{`${this.state.availableSections.length} Available`}</p>
-            {availableSectionsView}
+            <div className="all-tracked-courses">
+              {availableSectionsView}
+            </div>
             <p className="num-awaiting-label">{`${this.state.awaitingSections.length} Awaiting`}</p>
             {awaitingSections}
           </div>
         )
       } else {
         return (
-          <div>
+          <div className="no-tracked-course">
             <svg height="70" width="70">
               <circle cx="35" cy="35" r="35" fill="#47C753" />
             </svg>
