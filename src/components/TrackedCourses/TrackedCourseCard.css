@@ -20,7 +20,7 @@
 }
 
 .section-label {
-  color: #1B1F23;
+  color: #6A737D;
   font-weight: 600;
   font-size: 16px;
   padding: 4px 12px;
@@ -52,7 +52,7 @@
 }
 
 .status-icon {
-  margin: 32px 10px 20px 0px;
+  margin: 32px 20px 20px 10px;
 }
 
 .course-info-view {
