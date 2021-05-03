@@ -52,7 +52,7 @@ class TrackedCoursesView extends React.Component {
         <TrackedCourseCard
           key={section.catalogNum}
           section={section}
-          untrackedSectionHandler={(courseId) => this.updateSections(courseId)}
+          untrackSectionHandler={(courseId) => this.updateSections(courseId)}
         />
       )
     })
@@ -61,7 +61,7 @@ class TrackedCoursesView extends React.Component {
         <TrackedCourseCard
           key={section.catalogNum}
           section={section}
-          untrackedSectionHandler={(courseId) => this.updateSections(courseId)}
+          untrackSectionHandler={(courseId) => this.updateSections(courseId)}
         />
       )
     })

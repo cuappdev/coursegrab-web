@@ -7,19 +7,19 @@ import { untrackSection } from '../../utils/requests';
 
 export interface TrackedCourseCardProps {
   section: Section
-  untrackedSectionHandler: (courseId: number) => void
+  untrackSectionHandler: (courseId: number) => void
 }
 
 const TrackedCourseCard: React.FunctionComponent<TrackedCourseCardProps> = ({
   section,
-  untrackedSectionHandler
+  untrackSectionHandler
 }) => {
 
   const untrackClicked = async () => {
     try {
       const data = await untrackSection(section.catalogNum)
       if (data) {
-        untrackedSectionHandler(section.catalogNum)
+        untrackSectionHandler(section.catalogNum)
       }
     } catch (err) {
       console.log(err)
