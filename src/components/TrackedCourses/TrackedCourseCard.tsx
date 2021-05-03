@@ -3,14 +3,29 @@ import React from 'react'
 import './TrackedCourseCard.css'
 
 import { Section, Status } from '../../types'
+import { untrackSection } from '../../utils/requests';
 
 export interface TrackedCourseCardProps {
   section: Section
+  untrackedSectionHandler: (courseId: number) => void
 }
 
 const TrackedCourseCard: React.FunctionComponent<TrackedCourseCardProps> = ({
-  section
+  section,
+  untrackedSectionHandler
 }) => {
+
+  const untrackClicked = async () => {
+    try {
+      const data = await untrackSection(section.catalogNum)
+      if (data) {
+        untrackedSectionHandler(section.catalogNum)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const statusIcon = (status: Status) => {
     switch (status) {
       case Status.OPEN:
@@ -45,10 +60,10 @@ const TrackedCourseCard: React.FunctionComponent<TrackedCourseCardProps> = ({
         <p className="mode-label">{section.mode}</p>
       </div>
       <div className="action-buttons">
-        <button className="remove-button" >REMOVE</button>
+        <button className="remove-button" onClick={untrackClicked}>REMOVE</button>
         {
           section.status === Status.OPEN
-            ? <button className="enroll-button">ENROLL</button>
+            ? <a className="enroll-button" href="https://studentcenter.cornell.edu">ENROLL</a>
             : null
         }
       </div>

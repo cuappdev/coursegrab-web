@@ -37,15 +37,32 @@ class TrackedCoursesView extends React.Component {
     }
   }
 
+  updateSections = async (courseId: number) => {
+    const updatedAvailableSections = this.state.availableSections.filter(section => section.catalogNum != courseId)
+    const updatedAwaitingSections = this.state.awaitingSections.filter(section => section.catalogNum != courseId)
+    this.setState({
+      availableSections: updatedAvailableSections,
+      awaitingSections: updatedAwaitingSections
+    })
+  }
+
   render() {
     const availableSectionsView = this.state.availableSections.map(section => {
       return (
-        <TrackedCourseCard section={section} />
+        <TrackedCourseCard
+          key={section.catalogNum}
+          section={section}
+          untrackedSectionHandler={(courseId) => this.updateSections(courseId)}
+        />
       )
     })
     const awaitingSections = this.state.awaitingSections.map(section => {
       return (
-        <TrackedCourseCard section={section} />
+        <TrackedCourseCard
+          key={section.catalogNum}
+          section={section}
+          untrackedSectionHandler={(courseId) => this.updateSections(courseId)}
+        />
       )
     })
     const sections = () => {
