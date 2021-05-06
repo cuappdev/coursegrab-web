@@ -1,12 +1,14 @@
 .search-container {
+  width: 50%;
   display: flex;
   justify-content: center;
 }
 
 .search-bar {
-  width: 70vw;
-  height: 42px;
-  margin-top: 80px;
+  width: 40vw;
+  height: 40px;
+  /* margin-top: 80px; */
+  margin: 0;
   background: #FFFFFF;
   border: 1px solid #EBECEE;
   border-radius: 15px 15px 0px 0px;

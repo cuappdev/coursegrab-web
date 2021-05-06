@@ -4,6 +4,8 @@ import './Navigator.css'
 import firebase from "firebase/app"
 import "firebase/auth"
 
+import SearchView from '../Search/SearchView'
+
 import { ReactComponent as CourseGrabLogo } from '../../Bell.svg';
 import { hostUrl, firebaseConfig } from '../../utils/constants'
 import { initializeSession } from '../../utils/requests';
@@ -50,6 +52,7 @@ class Navigator extends React.Component {
             <CourseGrabLogo />
             <a className="coursegrab-text" href="/">CourseGrab</a>
           </div>
+          <SearchView />
           <div className="nav-right">
             <a onClick={() => this.state.isSignedIn ? this.signOut() : this.openSigninPopup()}> {this.state.isSignedIn ? "Sign Out" : "Sign In"}</a>
           </div>
