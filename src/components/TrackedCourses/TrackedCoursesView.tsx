@@ -37,30 +37,49 @@ class TrackedCoursesView extends React.Component {
     }
   }
 
+  updateSections = async (courseId: number) => {
+    const updatedAvailableSections = this.state.availableSections.filter(section => section.catalogNum != courseId)
+    const updatedAwaitingSections = this.state.awaitingSections.filter(section => section.catalogNum != courseId)
+    this.setState({
+      availableSections: updatedAvailableSections,
+      awaitingSections: updatedAwaitingSections
+    })
+  }
+
   render() {
     const availableSectionsView = this.state.availableSections.map(section => {
       return (
-        <TrackedCourseCard section={section} />
+        <TrackedCourseCard
+          key={section.catalogNum}
+          section={section}
+          untrackSectionHandler={(courseId) => this.updateSections(courseId)}
+        />
       )
     })
     const awaitingSections = this.state.awaitingSections.map(section => {
       return (
-        <TrackedCourseCard section={section} />
+        <TrackedCourseCard
+          key={section.catalogNum}
+          section={section}
+          untrackSectionHandler={courseId => this.updateSections(courseId)}
+        />
       )
     })
     const sections = () => {
-      if (this.state.availableSections.length > 0 && this.state.awaitingSections.length > 0) {
+      if (this.state.availableSections.length > 0 || this.state.awaitingSections.length > 0) {
         return (
           <div>
             <p className="num-available-label">{`${this.state.availableSections.length} Available`}</p>
-            {availableSectionsView}
+            <div className="all-tracked-courses">
+              {availableSectionsView}
+            </div>
             <p className="num-awaiting-label">{`${this.state.awaitingSections.length} Awaiting`}</p>
             {awaitingSections}
           </div>
         )
       } else {
         return (
-          <div>
+          <div className="no-tracked-course">
             <svg height="70" width="70">
               <circle cx="35" cy="35" r="35" fill="#47C753" />
             </svg>

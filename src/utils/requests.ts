@@ -52,6 +52,6 @@ export const searchCourses = async (query: string) => {
 
 export const trackSection = async () => { }
 
-export const untrackSection = async () => { }
+export const untrackSection = async (courseId: number) => await post(`/sections/untrack/`, { course_id: courseId })
 
 export const setNotificationMode = async () => { }
