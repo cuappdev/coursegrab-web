@@ -51,8 +51,8 @@ class Navigator extends React.Component {
           <div className="nav-left" >
             <CourseGrabLogo />
             <a className="coursegrab-text" href="/">CourseGrab</a>
+            <SearchView />
           </div>
-          <SearchView />
           <div className="nav-right">
             <a onClick={() => this.state.isSignedIn ? this.signOut() : this.openSigninPopup()}> {this.state.isSignedIn ? "Sign Out" : "Sign In"}</a>
           </div>
