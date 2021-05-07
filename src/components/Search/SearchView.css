@@ -1,6 +1,5 @@
 .search-container {
-  display: flex;
-  justify-content: left;
+  margin-left: 15px;
 }
 
 .search-bar {
@@ -28,9 +27,8 @@
 }
 
 .search-results-dropdown {
-  position: fixed;
-  width: 70vw;
-  margin-top: 122px;
+  width: 40vw;
+  text-align: left;
   background: #FFFFFF;
   box-sizing: border-box;
   border: 1px solid #EBECEE;
