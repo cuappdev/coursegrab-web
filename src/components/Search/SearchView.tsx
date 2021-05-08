@@ -50,7 +50,7 @@ class SearchView extends React.Component {
     })
     return (
       <div className="search-container">
-        <div className="search-bar" style={{ borderRadius: this.state.searchText === '' ? '15px' : '15px 15px 0px 0px' }}>
+        <div className="search-bar" style={{ borderRadius: this.state.searchText === '' ? '20px' : '15px 15px 0px 0px' }}>
           {this.searchIcon(18, 18)}
           <input className="search-input"
             value={this.state.searchText}
