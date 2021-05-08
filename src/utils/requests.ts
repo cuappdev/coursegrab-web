@@ -39,7 +39,17 @@ export const setAuthHeader = (token: string | null) => {
 
 export const validateToken = async () => { }
 
-export const initializeSession = async () => { }
+export const initializeSession = async (token: string, givenName: string, familyName: string) => {
+    const body = {
+        token: token,
+        deviceType: "WEB",
+        deviceToken: null,
+        givenName: givenName,
+        familyName: familyName
+    }
+    const data = await post(`/session/initialize/v2/`, body)
+    return data
+ }
 
 export const updateSession = async () => { }
 

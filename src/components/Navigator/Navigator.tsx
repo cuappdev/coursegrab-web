@@ -5,7 +5,7 @@ import firebase from "firebase/app"
 import "firebase/auth"
 import { hostUrl, firebaseConfig } from '../../utils/constants'
 import { initializeSession } from '../../utils/requests';
-import { User } from '../../types'
+import { User, SessionAuthorization } from '../../types'
 
 firebase.initializeApp(firebaseConfig)
 var provider = new firebase.auth.GoogleAuthProvider()
@@ -13,7 +13,7 @@ var provider = new firebase.auth.GoogleAuthProvider()
 class Navigator extends React.Component {
 
   state = {
-    isSignedIn: false
+    isSignedIn: localStorage.getItem('user')
   }
 
   openSigninPopup = () => {
@@ -22,9 +22,17 @@ class Navigator extends React.Component {
       .signInWithPopup(provider)
       .then(async result => {
         var credential = result.credential as firebase.auth.OAuthCredential
-        var token = credential.accessToken
-        var user = result.user
-        // TODO: Initialize user session
+        var token = credential.idToken as string
+        var user = result.additionalUserInfo as firebase.auth.AdditionalUserInfo
+        var profile = user.profile as Record<string, string>
+        const session = await initializeSession(token, profile.given_name, profile.family_name) as SessionAuthorization
+        const loggedInUser : User = {
+          email: profile.email,
+          name: profile.name,
+          id: token,
+          sessionAuthorization: session,
+        }
+        localStorage.setItem('user', JSON.stringify(loggedInUser));
         this.setState({ isSignedIn: true })
       })
       .catch(error => {
@@ -37,6 +45,7 @@ class Navigator extends React.Component {
 
   signOut = () => {
     firebase.auth().signOut()
+    localStorage.removeItem('user')
     this.setState({ isSignedIn: false })
   }
 

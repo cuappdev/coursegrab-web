@@ -34,6 +34,7 @@ export interface Course {
 }
 
 export interface SessionAuthorization {
+    notification: string
     sessionExpiration: Date
     sessionToken: string
     updateToken: string
