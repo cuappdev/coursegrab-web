@@ -1,0 +1,21 @@
+.sections-card {
+  width: 60%;
+  margin: auto;
+  background: #FFFFFF;
+  border: 1px solid #D1D5DA;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.bucket-label {
+  color: #000000;
+  font-weight: 600;
+  padding: 22px 0 30px 0;
+  font-size: 24px;
+  margin: 0px 24px;
+}
+
+.sections-card {
+  margin-bottom: 26px;
+} 
