@@ -39,15 +39,23 @@ export const setAuthHeader = (token: string | null) => {
 
 export const validateToken = async () => { }
 
-export const initializeSession = async () => { }
+export const initializeSession = async (token: string, givenName: string, familyName: string) => {
+    const body = {
+        token,
+        deviceType: "WEB",
+        deviceToken: null,
+        givenName,
+        familyName
+    }
+    return await post(`/session/initialize/v2/`, body)
+ }
 
 export const updateSession = async () => { }
 
 export const getAllTrackedSections = async () => await get(`/users/tracking/`)
 
 export const searchCourses = async (query: string) => {
-    const data = await post(`/courses/search/`, { query: query })
-    return data
+    return await post(`/courses/search/`, { query: query })
 }
 
 export const trackSection = async () => { }
