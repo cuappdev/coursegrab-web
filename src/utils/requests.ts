@@ -41,14 +41,13 @@ export const validateToken = async () => { }
 
 export const initializeSession = async (token: string, givenName: string, familyName: string) => {
     const body = {
-        token: token,
+        token,
         deviceType: "WEB",
         deviceToken: null,
-        givenName: givenName,
-        familyName: familyName
+        givenName,
+        familyName
     }
-    const data = await post(`/session/initialize/v2/`, body)
-    return data
+    return await post(`/session/initialize/v2/`, body)
  }
 
 export const updateSession = async () => { }
@@ -56,8 +55,7 @@ export const updateSession = async () => { }
 export const getAllTrackedSections = async () => await get(`/users/tracking/`)
 
 export const searchCourses = async (query: string) => {
-    const data = await post(`/courses/search/`, { query: query })
-    return data
+    return await post(`/courses/search/`, { query: query })
 }
 
 export const trackSection = async () => { }

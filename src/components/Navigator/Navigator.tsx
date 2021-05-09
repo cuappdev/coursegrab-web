@@ -13,7 +13,7 @@ var provider = new firebase.auth.GoogleAuthProvider()
 class Navigator extends React.Component {
 
   state = {
-    isSignedIn: localStorage.getItem('user')
+    isSignedIn: !!localStorage.getItem('user')
   }
 
   openSigninPopup = () => {
@@ -21,10 +21,10 @@ class Navigator extends React.Component {
       .auth()
       .signInWithPopup(provider)
       .then(async result => {
-        var credential = result.credential as firebase.auth.OAuthCredential
-        var token = credential.idToken as string
-        var user = result.additionalUserInfo as firebase.auth.AdditionalUserInfo
-        var profile = user.profile as Record<string, string>
+        const credential = result.credential as firebase.auth.OAuthCredential
+        const token = credential.idToken as string
+        const user = result.additionalUserInfo as firebase.auth.AdditionalUserInfo
+        const profile = user.profile as Record<string, string>
         const session = await initializeSession(token, profile.given_name, profile.family_name) as SessionAuthorization
         const loggedInUser : User = {
           email: profile.email,
