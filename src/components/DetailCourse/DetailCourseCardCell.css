@@ -1,0 +1,73 @@
+.detail-section {
+    margin: 0px 24px;
+    background: #FFFFFF;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 16px;
+    height: 30px;
+  }
+
+  .description-label {
+    vertical-align: middle;
+    color: #000000;
+    font-weight: 600;
+    font-size: 14px;
+    margin-left:8px;
+  }
+
+  .num-tracking-label {
+    color: #000000;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .mode-label {
+    color: #000000;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .emoji-icon {
+    margin-left:8px;
+    font-size: 24px;
+  }
+
+  button:focus {
+    outline: 0;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+  .remove-button {
+    font-weight: 600;
+    font-size: 12px;
+    margin-left: 56px;
+    margin-right: 20px;
+    width: 90px;
+    height: 24px;
+    color: #CA4238;
+    background-color: #FFFFFF;
+    border: 1px solid #CA4238;
+    box-sizing: border-box;
+    border-radius: 2px;
+  }
+
+  .track-button {
+    font-weight: 600;
+    font-size: 12px;
+    margin-left: 56px;
+    margin-right: 20px;
+    width: 90px;
+    height: 24px;
+    color: #586069;
+    background-color: #FFFFFF;
+    border: 1px solid #586069;
+    box-sizing: border-box;
+    border-radius: 2px;
+  }
