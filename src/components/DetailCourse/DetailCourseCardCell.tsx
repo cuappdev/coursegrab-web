@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './DetailCourseSectionCell.css'
+import './DetailCourseCardCell.css'
 
 import { Section, Status } from '../../types'
 
@@ -38,14 +38,9 @@ const DetailSection: React.FunctionComponent<DetailSectionCellProps> = ({
       {statusIcon(section.status)}
       <p className="description-label">{section.section}</p>
       {
-        !section.isTracking
-          ? <button className="track-button">TRACK</button>
-          : null
-      }
-      {
-        section.isTracking
+          section.isTracking
           ? <button className="remove-button">REMOVE</button>
-          : null
+          : <button className="track-button">TRACK</button>
       }
       <p className="emoji-icon">🙋🏾‍♀️</p>
       <p className="num-tracking-label">{section.numTracking + "50 students are tracking this section"}</p>

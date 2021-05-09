@@ -4,7 +4,7 @@ import './DetailCourseCard.css'
 
 import { Section } from '../../types'
 
-import DetailSection from './DetailCourseSectionCell'
+import DetailSection from'./DetailCourseCardCell'
 
 export interface DetailSectionCardProps {
     sectionType: string

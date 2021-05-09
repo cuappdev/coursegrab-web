@@ -33,7 +33,7 @@ const DetailCourseView: React.FunctionComponent<DetailCourseViewProps> = ({
         cards.push(<DetailSectionCard sectionType="Lab" sections={pass}/>)
     }
     if (fail.length > 0) {
-        cards.push(<DetailSectionCard sectionType="Lab" sections={fail}/>)
+        cards.push(<DetailSectionCard sectionType="Other" sections={fail}/>)
     }
     return (
         <div className="detail-course-view">
