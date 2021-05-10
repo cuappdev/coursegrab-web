@@ -4,7 +4,7 @@ import './DetailCourseCard.css'
 
 import { Section } from '../../types'
 
-import DetailSection from'./DetailCourseCardCell'
+import DetailSectionRow from'./DetailCourseCardCell'
 
 export interface DetailSectionCardProps {
     sectionType: string
@@ -22,7 +22,7 @@ const DetailSectionCard: React.FunctionComponent<DetailSectionCardProps> = ({
                 {
                     sections.map(section => {
                         return (
-                            <DetailSection section={section} />
+                            <DetailSectionRow section={section} />
                         )
                     })
                 }

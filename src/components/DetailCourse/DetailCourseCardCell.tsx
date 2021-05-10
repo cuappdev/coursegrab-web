@@ -3,14 +3,38 @@ import React from 'react'
 import './DetailCourseCardCell.css'
 
 import { Section, Status } from '../../types'
+import { trackSection, untrackSection } from '../../utils/requests';
 
-export interface DetailSectionCellProps {
+export interface DetailCourseCardCellProps {
   section: Section
 }
 
-const DetailSection: React.FunctionComponent<DetailSectionCellProps> = ({
+const DetailSectionRow: React.FunctionComponent<DetailCourseCardCellProps> = ({
   section
 }) => {
+
+  const trackButtonClicked = async () => {
+    try {
+      const data = await trackSection(section.catalogNum)
+      if (data) {
+        section = data
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const removeButtonClicked = async () => {
+    try {
+      const data = await untrackSection(section.catalogNum)
+      if (data) {
+        section = data
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const statusIcon = (status: Status) => {
     switch (status) {
       case Status.OPEN:
@@ -39,15 +63,15 @@ const DetailSection: React.FunctionComponent<DetailSectionCellProps> = ({
       <p className="description-label">{section.section}</p>
       {
           section.isTracking
-          ? <button className="remove-button">REMOVE</button>
-          : <button className="track-button">TRACK</button>
+          ? <button className="cell-remove-button" onClick={removeButtonClicked}>REMOVE</button>
+          : <button className="cell-track-button" onClick={trackButtonClicked}>TRACK</button>
       }
       <p className="emoji-icon">🙋🏾‍♀️</p>
       <p className="num-tracking-label">{section.numTracking + "50 students are tracking this section"}</p>
       <p className="emoji-icon">👀</p>
-      <p className="mode-label">{section.mode}</p>
+      <p className="modality-label">{section.mode}</p>
     </div >
   )
 }
 
-export default DetailSection
+export default DetailSectionRow

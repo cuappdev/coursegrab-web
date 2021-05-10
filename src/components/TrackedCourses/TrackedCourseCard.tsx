@@ -51,7 +51,7 @@ const TrackedCourseCard: React.FunctionComponent<TrackedCourseCardProps> = ({
   return (
     <div className="tracked-course-card" >
       <div className="title-status-view">
-        <p className="title-label">{section.title}</p>
+        <p className="tracked-course-title-label">{section.title}</p>
         <div className="status-icon">
           {statusIcon(section.status)}
         </div>

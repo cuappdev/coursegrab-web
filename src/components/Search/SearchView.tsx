@@ -2,6 +2,7 @@ import React from 'react'
 
 import './SearchView.css'
 
+import { Link } from 'react-router-dom'
 import { searchCourses } from '../../utils/requests';
 
 import { Course, CourseQuery } from '../../types';
@@ -42,10 +43,10 @@ class SearchView extends React.Component {
   render() {
     const courses = this.state.courses.map(course => {
       return (
-        <div className="search-result">
-          {this.searchIcon(16, 16)}
-          <p className="result-text">{`${course.subjectCode} ${course.courseNum}: ${course.title}`}</p>
-        </div>
+          <div className="search-result" onClick={() => this.setState({searchText: '', courses: []})}>
+              {this.searchIcon(16, 16)}
+              <p className="result-text">{`${course.subjectCode} ${course.courseNum}: ${course.title}`}</p>
+          </div>
       )
     })
     return (

@@ -8,7 +8,7 @@ import SearchView from '../Search/SearchView'
 
 import { ReactComponent as CourseGrabLogo } from '../../Bell.svg';
 import { hostUrl, firebaseConfig } from '../../utils/constants'
-import { initializeSession } from '../../utils/requests';
+import { initializeSession, setAuthHeader } from '../../utils/requests';
 import { User, SessionAuthorization } from '../../types'
 
 firebase.initializeApp(firebaseConfig)
@@ -36,6 +36,7 @@ class Navigator extends React.Component {
           id: token,
           sessionAuthorization: session,
         }
+        setAuthHeader(session.sessionToken)
         localStorage.setItem('user', JSON.stringify(loggedInUser));
         this.setState({ isSignedIn: true })
       })
