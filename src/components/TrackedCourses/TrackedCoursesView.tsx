@@ -26,6 +26,7 @@ class TrackedCoursesView extends React.Component {
   getTrackedSections = async () => {
     try {
       const data: Sections = await getAllTrackedSections()
+      console.log(data)
       const available = data.sections.filter(section => section.status === Status.OPEN)
       const awaiting = data.sections.filter(section => section.status !== Status.OPEN)
       this.setState({
@@ -84,7 +85,7 @@ class TrackedCoursesView extends React.Component {
               <circle cx="35" cy="35" r="35" fill="#47C753" />
             </svg>
             <p className="tracking-title-label">No Courses Currently Tracked</p>
-            <p className="tracking-subtitle-label">Tap the search icon to start adding courses</p>
+            <p className="tracking-subtitle-label">Sign in to start tracking courses</p>
           </div>
         )
       }

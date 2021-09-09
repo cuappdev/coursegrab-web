@@ -19,6 +19,7 @@ api.interceptors.response.use((response: AxiosResponse) => {
 });
 
 const get = async (url: string, headers?: any, params?: any) => {
+    setAuthHeader(null)
     const res = await api.get(url, params, headers)
     const { success, data } = res.data
     if (success) return data
@@ -26,6 +27,7 @@ const get = async (url: string, headers?: any, params?: any) => {
 }
 
 const post = async (url: string, body?: any, headers?: any) => {
+    setAuthHeader(null)
     const res = await api.post(url, body, headers)
     const { success, data } = res.data
     if (success) return data
@@ -33,8 +35,11 @@ const post = async (url: string, body?: any, headers?: any) => {
 }
 
 export const setAuthHeader = (token: string | null) => {
-    const header = `Bearer ${token ? token : localStorage.getItem('accessToken')}`
-    axios.defaults.headers.common['Authorization'] = header
+    if (token) {
+        localStorage.setItem('sessionToken', token)
+    }
+    const header = `Bearer ${token ? token : localStorage.getItem('sessionToken')}`
+    api.defaults.headers.common['Authorization'] = header
 }
 
 export const validateToken = async () => { }
@@ -58,7 +63,7 @@ export const searchCourses = async (query: string) => {
     return await post(`/courses/search/`, { query: query })
 }
 
-export const trackSection = async () => { }
+export const trackSection = async (courseId: number) => await post(`/sections/track/`, { course_id: courseId })
 
 export const untrackSection = async (courseId: number) => await post(`/sections/untrack/`, { course_id: courseId })
 

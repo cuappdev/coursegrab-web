@@ -51,6 +51,7 @@ class Navigator extends React.Component {
   signOut = () => {
     firebase.auth().signOut()
     localStorage.removeItem('user')
+    localStorage.removeItem('sessionToken')
     this.setState({ isSignedIn: false })
   }
 
