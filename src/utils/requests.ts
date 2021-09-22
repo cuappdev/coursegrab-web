@@ -48,7 +48,7 @@ export const initializeSession = async (token: string, givenName: string, family
         familyName
     }
     return await post(`/session/initialize/v2/`, body)
- }
+}
 
 export const updateSession = async () => { }
 

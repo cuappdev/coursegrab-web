@@ -74,8 +74,10 @@ class TrackedCoursesView extends React.Component {
               {availableSectionsView}
             </div>
             <p className="num-awaiting-label">{`${this.state.awaitingSections.length} Awaiting`}</p>
-            {awaitingSections}
-          </div>
+            <div className="all-tracked-courses">
+              {awaitingSections}
+            </div>
+          </div >
         )
       } else {
         return (

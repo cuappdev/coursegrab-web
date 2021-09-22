@@ -62,10 +62,10 @@ const TrackedCourseCard: React.FunctionComponent<TrackedCourseCardProps> = ({
         <p className="mode-label">{section.mode}</p>
       </div>
       <div className="action-buttons">
-        <button className="remove-button" onClick={untrackClicked}>REMOVE</button>
+        <button className="tracked-card-remove-button" onClick={untrackClicked}>REMOVE</button>
         {
           section.status === Status.OPEN
-            ? <a className="enroll-button" href="https://studentcenter.cornell.edu">ENROLL</a>
+            ? <a className="tracked-card-enroll-button" href="https://studentcenter.cornell.edu">ENROLL</a>
             : null
         }
       </div>
