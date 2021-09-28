@@ -15,19 +15,19 @@ const DetailSection: React.FunctionComponent<DetailSectionCellProps> = ({
     switch (status) {
       case Status.OPEN:
         return (
-          <svg className="status-icon" height="16" width="16">
+          <svg height="16" width="16">
             <circle cx="8" cy="8" r="8" fill="#47C753" />
           </svg>
         )
       case Status.CLOSED:
         return (
-          <svg className="status-icon" height="16" width="16">
+          <svg height="16" width="16">
             <rect width="16" height="16" fill="#CA4238" />
           </svg>
         )
       case Status.WAITLISTED:
         return (
-          <svg className="status-icon" height="16" width="16">
+          <svg height="16" width="16">
             <polygon points="0,16 8,0 16,16" fill="#FFD027" />
           </svg>
         )
