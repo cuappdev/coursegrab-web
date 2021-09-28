@@ -40,7 +40,7 @@ class SearchView extends React.Component {
   }
 
   collapseSearch = () => {
-    console.log("collapse")
+    // TODO: collapse search dropdown
   }
 
   render() {

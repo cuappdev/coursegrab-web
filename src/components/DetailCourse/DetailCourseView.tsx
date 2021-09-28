@@ -21,26 +21,9 @@ export interface DetailCourseViewPropsLocation {
     state: Course
 }
 
-const partition = (arr: Section[], condition: any) => {
-    const pass = arr.filter(el => condition(el))
-    const fail = arr.filter(el => !condition(el))
-    return [pass, fail]
-}
-
 class DetailCourseView extends React.Component<DetailCourseViewProps> {
 
-    state: TrackedCoursesViewState = {
-        lecSections: [],
-        disSections: [],
-        labSections: [],
-        otherSections: [],
-    }
-
-    componentDidMount() {
-        this.filterSections(this.props.location.state.sections)
-    }
-
-    filterSections(sections: Section[]) {
+    getSectionCards(sections: Section[]) {
         const lecSections = []
         const disSections = []
         const labSections = []
@@ -48,45 +31,41 @@ class DetailCourseView extends React.Component<DetailCourseViewProps> {
         for (let i = 0; i < sections.length; i++) {
             switch (sections[i].section.substring(0, 3)) {
                 case "LEC":
-                    lecSections.push(sections[i].section)
+                    lecSections.push(sections[i])
                     break
                 case "DIS":
-                    disSections.push(sections[i].section)
+                    disSections.push(sections[i])
                     break
                 case "LAB":
-                    labSections.push(sections[i].section)
+                    labSections.push(sections[i])
                     break
                 default:
-                    otherSections.push(sections[i].section)
+                    otherSections.push(sections[i])
             }
         }
-        this.setState({
-            lecSections: lecSections,
-            disSections: disSections,
-            labSections: labSections,
-            otherSections: otherSections
-        })
+
+        const cards: JSX.Element[] = []
+        if (lecSections.length > 0) {
+            cards.push(<DetailSectionCard sectionType="Lecture" sections={lecSections} />)
+        }
+        if (disSections.length > 0) {
+            cards.push(< DetailSectionCard sectionType="Section" sections={disSections} />)
+        }
+        if (labSections.length > 0) {
+            cards.push(< DetailSectionCard sectionType="Lab" sections={labSections} />)
+        }
+        if (otherSections.length > 0) {
+            cards.push(<DetailSectionCard sectionType="Other" sections={otherSections} />)
+        }
+        return cards
     }
 
     render() {
-        const cards = () => {
-            const cards: JSX.Element[] = []
-            if (this.state.lecSections.length > 0) {
-                cards.push(<DetailSectionCard sectionType="Lecture" sections={this.state.lecSections} />)
-            } else if (this.state.disSections.length > 0) {
-                cards.push(< DetailSectionCard sectionType="Section" sections={this.state.disSections} />)
-            } else if (this.state.labSections.length > 0) {
-                cards.push(< DetailSectionCard sectionType="Lab" sections={this.state.labSections} />)
-            } else {
-                cards.push(<DetailSectionCard sectionType="Other" sections={this.state.otherSections} />)
-            }
-            return cards
-        }
         return (
             <div className="detail-course-view">
                 <p className="detail-course-view-title-label">{this.props.location.state.title}</p>
                 <div className="section-cards" >
-                    {cards()}
+                    {this.getSectionCards(this.props.location.state.sections)}
                 </div>
             </div >
         )
