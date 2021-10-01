@@ -22,7 +22,6 @@ export interface DetailCourseViewPropsLocation {
 }
 
 class DetailCourseView extends React.Component<DetailCourseViewProps> {
-
     getSectionCards(sections: Section[]) {
         const lecSections = []
         const disSections = []
@@ -64,10 +63,10 @@ class DetailCourseView extends React.Component<DetailCourseViewProps> {
         return (
             <div className="detail-course-view">
                 <p className="detail-course-view-title-label">{this.props.location.state.title}</p>
-                <div className="section-cards" >
+                <div className="section-cards">
                     {this.getSectionCards(this.props.location.state.sections)}
                 </div>
-            </div >
+            </div>
         )
     }
 }

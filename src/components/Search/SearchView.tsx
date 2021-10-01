@@ -48,14 +48,14 @@ class SearchView extends React.Component {
       return (
         <div className="search-result">
           {this.searchIcon(16, 16)}
-          < Link to={{ pathname: `/courses/${course.subjectCode + course.courseNum}`, state: course }} onClick={this.collapseSearch}>
+          <Link to={{ pathname: `/courses/${course.subjectCode + course.courseNum}`, state: course }} onClick={this.collapseSearch}>
             <p className="result-text">{`${course.subjectCode} ${course.courseNum}: ${course.title}`}</p>
-          </Link >
-        </div >
+          </Link>
+        </div>
       )
     })
     return (
-      <div className="search-container" >
+      <div className="search-container">
         <div className="search-bar" style={{ borderRadius: this.state.searchText === '' ? '20px' : '15px 15px 0px 0px' }}>
           {this.searchIcon(18, 18)}
           <input className="search-input"
@@ -75,7 +75,7 @@ class SearchView extends React.Component {
               </div>
             )
         }
-      </div >
+      </div>
     )
   }
 }
