@@ -6,43 +6,69 @@ import { Course, Section } from '../../types'
 
 import DetailSectionCard from './DetailCourseCard'
 
+type TrackedCoursesViewState = {
+    lecSections: Section[]
+    disSections: Section[]
+    labSections: Section[]
+    otherSections: Section[]
+}
+
 export interface DetailCourseViewProps {
-    course: Course
+    location: DetailCourseViewPropsLocation
 }
 
-const partition = (arr: Section[], condition: any) => {
-    const pass = arr.filter(el => condition(el))
-    const fail= arr.filter(el => !condition(el))
-    return [pass, fail]
+export interface DetailCourseViewPropsLocation {
+    state: Course
 }
 
-const DetailCourseView: React.FunctionComponent<DetailCourseViewProps> = ({
-    course
-}) => {
-    var cards: JSX.Element[] = []
-    var [pass, fail] = partition(course.sections, (s: Section) => s.section.substring(0, 3) == "LEC")
-    if (pass.length > 0) {
-        cards.push(<DetailSectionCard sectionType="Lecture" sections={pass}/>)
+class DetailCourseView extends React.Component<DetailCourseViewProps> {
+    getSectionCards(sections: Section[]) {
+        const lecSections = []
+        const disSections = []
+        const labSections = []
+        const otherSections = []
+        for (let i = 0; i < sections.length; i++) {
+            switch (sections[i].section.substring(0, 3)) {
+                case "LEC":
+                    lecSections.push(sections[i])
+                    break
+                case "DIS":
+                    disSections.push(sections[i])
+                    break
+                case "LAB":
+                    labSections.push(sections[i])
+                    break
+                default:
+                    otherSections.push(sections[i])
+            }
+        }
+
+        const cards: JSX.Element[] = []
+        if (lecSections.length > 0) {
+            cards.push(<DetailSectionCard sectionType="Lecture" sections={lecSections} />)
+        }
+        if (disSections.length > 0) {
+            cards.push(< DetailSectionCard sectionType="Section" sections={disSections} />)
+        }
+        if (labSections.length > 0) {
+            cards.push(< DetailSectionCard sectionType="Lab" sections={labSections} />)
+        }
+        if (otherSections.length > 0) {
+            cards.push(<DetailSectionCard sectionType="Other" sections={otherSections} />)
+        }
+        return cards
     }
-    [pass, fail] = partition(fail, (s: Section) => s.section.substring(0, 3) == "DIS");
-    if (pass.length > 0) {
-        cards.push(<DetailSectionCard sectionType="Section" sections={pass}/>)
-    }
-    [pass, fail] = partition(fail, (s: Section) => s.section.substring(0, 3) == "LAB");
-    if (pass.length > 0) {
-        cards.push(<DetailSectionCard sectionType="Lab" sections={pass}/>)
-    }
-    if (fail.length > 0) {
-        cards.push(<DetailSectionCard sectionType="Other" sections={fail}/>)
-    }
-    return (
-        <div className="detail-course-view">
-            <p className="title-label">{course.title}</p>
-            <div className="section-cards" >
-                {cards}
+
+    render() {
+        return (
+            <div className="detail-course-view">
+                <p className="detail-course-view-title-label">{this.props.location.state.title}</p>
+                <div className="section-cards">
+                    {this.getSectionCards(this.props.location.state.sections)}
+                </div>
             </div>
-        </div >
-    )
+        )
+    }
 }
 
 export default DetailCourseView

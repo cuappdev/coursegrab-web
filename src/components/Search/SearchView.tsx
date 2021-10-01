@@ -1,9 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 import './SearchView.css'
 
 import { searchCourses } from '../../utils/requests';
-
 import { Course, CourseQuery } from '../../types';
 
 type SearchViewState = {
@@ -39,12 +39,18 @@ class SearchView extends React.Component {
     }
   }
 
+  collapseSearch = () => {
+    // TODO: collapse search dropdown
+  }
+
   render() {
     const courses = this.state.courses.map(course => {
       return (
         <div className="search-result">
           {this.searchIcon(16, 16)}
-          <p className="result-text">{`${course.subjectCode} ${course.courseNum}: ${course.title}`}</p>
+          <Link to={{ pathname: `/courses/${course.subjectCode + course.courseNum}`, state: course }} onClick={this.collapseSearch}>
+            <p className="result-text">{`${course.subjectCode} ${course.courseNum}: ${course.title}`}</p>
+          </Link>
         </div>
       )
     })
