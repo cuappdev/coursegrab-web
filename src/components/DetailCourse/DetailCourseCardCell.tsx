@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import './DetailCourseCardCell.css'
 
+import { trackSection, untrackSection } from '../../utils/requests';
 import { Section, Status } from '../../types'
 
 export interface DetailSectionCellProps {
@@ -11,6 +12,8 @@ export interface DetailSectionCellProps {
 const DetailSection: React.FunctionComponent<DetailSectionCellProps> = ({
   section
 }) => {
+  const [isTracking, setIsTracking] = useState(section.isTracking);
+
   const statusIcon = (status: Status) => {
     switch (status) {
       case Status.OPEN:
@@ -33,17 +36,36 @@ const DetailSection: React.FunctionComponent<DetailSectionCellProps> = ({
         )
     }
   }
+
+  const trackClicked = async () => {
+    try {
+      const result = await trackSection(section.catalogNum)
+      if (result.catalogNum == section.catalogNum) setIsTracking(true)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const removeClicked = async () => {
+    try {
+      const result = await untrackSection(section.catalogNum)
+      if (result.catalogNum == section.catalogNum) setIsTracking(false)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div className="detail-section" >
       {statusIcon(section.status)}
       <p className="description-label">{section.section}</p>
       {
-        section.isTracking
-          ? <button className="remove-button">REMOVE</button>
-          : <button className="track-button">TRACK</button>
+        isTracking
+          ? <button className="remove-button" onClick={removeClicked}>REMOVE</button>
+          : <button className="track-button" onClick={trackClicked}>TRACK</button>
       }
       <p className="emoji-icon">🙋🏾‍♀️</p>
-      <p className="num-tracking-label">{section.numTracking + " students are tracking this section"}</p>
+      <p className="num-tracking-label">{`${section.numTracking} students are tracking this section`}</p>
       <p className="emoji-icon">👀</p>
       <p className="detail-cell-mode-label">{section.mode}</p>
     </div >
