@@ -9,14 +9,14 @@ import { Course, CourseQuery } from '../../types';
 type SearchViewState = {
   searchText: string
   courses: Course[]
-  isResultsCollapsed: boolean
+  isResultsListCollapsed: boolean
 }
 
 class SearchView extends React.Component {
   state: SearchViewState = {
     searchText: '',
     courses: [],
-    isResultsCollapsed: false
+    isResultsListCollapsed: false
   }
 
   searchIcon = (width: number, height: number) => {
@@ -47,8 +47,8 @@ class SearchView extends React.Component {
         <div className="search-result">
           {this.searchIcon(16, 16)}
           <Link
-            to={{ pathname: `/courses/${course.subjectCode + course.courseNum}`, state: course }}
-            onClick={() => this.setState({ isResultsCollapsed: true })}
+            to={{ pathname: `/courses/${course.subjectCode}${course.courseNum}`, state: course }}
+            onClick={() => this.setState({ isResultsListCollapsed: true })}
           >
             <p className="result-text">{`${course.subjectCode} ${course.courseNum}: ${course.title}`}</p>
           </Link>
@@ -60,7 +60,7 @@ class SearchView extends React.Component {
         <div
           className="search-bar"
           style={{
-            borderRadius: (this.state.searchText === '' || this.state.isResultsCollapsed)
+            borderRadius: (this.state.searchText === '' || this.state.isResultsListCollapsed)
               ? '20px'
               : '15px 15px 0px 0px'
           }}
@@ -70,18 +70,18 @@ class SearchView extends React.Component {
             className="search-input"
             value={this.state.searchText}
             onChange={(event) => {
-              this.setState({ searchText: event.target.value, isResultsCollapsed: false })
+              this.setState({ searchText: event.target.value, isResultsListCollapsed: false })
               this.getCourses(event.target.value)
             }}
             onClick={() => {
               if (courses.length > 0) {
-                this.setState({ isResultsCollapsed: false })
+                this.setState({ isResultsListCollapsed: false })
               }
             }}
           />
         </div>
         {
-          (this.state.searchText === '' || this.state.isResultsCollapsed)
+          (this.state.searchText === '' || this.state.isResultsListCollapsed)
             ? null
             : (
               <div className="search-results-dropdown">
