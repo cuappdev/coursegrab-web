@@ -27,6 +27,7 @@ export interface CourseQuery {
 }
 
 export interface Course {
+    id: number
     courseNum: number
     subjectCode: string
     sections: Section[]

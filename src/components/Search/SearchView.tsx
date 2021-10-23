@@ -47,7 +47,7 @@ class SearchView extends React.Component {
         <div className="search-result">
           {this.searchIcon(16, 16)}
           <Link
-            to={{ pathname: `/courses/${course.subjectCode}${course.courseNum}`, state: course }}
+            to={{ pathname: `/courses/${course.id}`, state: course }}
             onClick={() => this.setState({ isResultsListCollapsed: true })}
           >
             <p className="result-text">{`${course.subjectCode} ${course.courseNum}: ${course.title}`}</p>

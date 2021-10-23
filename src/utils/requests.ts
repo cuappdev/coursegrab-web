@@ -58,6 +58,8 @@ export const searchCourses = async (query: string) => {
     return await post(`/courses/search/`, { query: query })
 }
 
+export const getCourseById = async (courseId: number) => await get(`/courses/${courseId}`)
+
 export const trackSection = async (courseId: number) => await post(`/sections/track/`, { course_id: courseId })
 
 export const untrackSection = async (courseId: number) => await post(`/sections/untrack/`, { course_id: courseId })
