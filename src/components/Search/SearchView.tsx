@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import './SearchView.css'
 
+import { Course } from '../../types';
 import { searchCourses } from '../../utils/requests';
-import { Course, CourseQuery } from '../../types';
 
 type SearchViewState = {
   searchText: string

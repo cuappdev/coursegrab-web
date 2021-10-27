@@ -2,8 +2,8 @@ import React from 'react'
 
 import './DetailCourseView.css'
 
-import { getCourseById } from '../../utils/requests';
 import { Course, Section } from '../../types'
+import { getCourseById } from '../../utils/requests';
 
 import DetailSectionCard from './DetailCourseCard'
 
@@ -22,7 +22,11 @@ export interface DetailCourseViewPropsLocation {
 }
 
 export interface DetailCourseViewPropsMatch {
-    params: any
+    params: DetailCourseViewPropsMatchParams
+}
+
+export interface DetailCourseViewPropsMatchParams {
+    id: number
 }
 
 class DetailCourseView extends React.Component<DetailCourseViewProps> {
