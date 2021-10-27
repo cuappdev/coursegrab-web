@@ -3,26 +3,69 @@ import React from 'react'
 import './DetailCourseView.css'
 
 import { Course, Section } from '../../types'
+import { getCourseById } from '../../utils/requests';
 
 import DetailSectionCard from './DetailCourseCard'
 
 type TrackedCoursesViewState = {
-    lecSections: Section[]
-    disSections: Section[]
-    labSections: Section[]
-    otherSections: Section[]
+    title: String,
+    sections: Section[]
 }
 
 export interface DetailCourseViewProps {
     location: DetailCourseViewPropsLocation
+    match: DetailCourseViewPropsMatch
 }
 
 export interface DetailCourseViewPropsLocation {
-    state: Course
+    state: any
+}
+
+export interface DetailCourseViewPropsMatch {
+    params: DetailCourseViewPropsMatchParams
+}
+
+export interface DetailCourseViewPropsMatchParams {
+    id: number
 }
 
 class DetailCourseView extends React.Component<DetailCourseViewProps> {
-    getSectionCards(sections: Section[]) {
+
+    state: TrackedCoursesViewState = {
+        title: "",
+        sections: []
+    }
+
+    async componentDidMount() {
+        // check if there's a course in location state, else make a network request to get course by id
+        try {
+            const course: Course = this.props.location.state
+            this.setState({
+                title: course.title,
+                sections: course.sections
+            })
+        } catch {
+            try {
+                const course = await getCourseById(this.props.match.params.id)
+                this.setState({
+                    title: course.title,
+                    sections: course.sections
+                })
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    }
+
+    getSectionCards() {
+        var sections = []
+        try {
+            const course: Course = this.props.location.state
+            sections = course.sections
+        } catch {
+            sections = this.state.sections
+        }
+
         const lecSections = []
         const disSections = []
         const labSections = []
@@ -59,12 +102,21 @@ class DetailCourseView extends React.Component<DetailCourseViewProps> {
         return cards
     }
 
+    getCourseTitle() {
+        try {
+            const course: Course = this.props.location.state
+            return course.title
+        } catch {
+            return this.state.title
+        }
+    }
+
     render() {
         return (
             <div className="detail-course-view">
-                <p className="detail-course-view-title-label">{this.props.location.state.title}</p>
+                <p className="detail-course-view-title-label">{this.getCourseTitle()}</p>
                 <div className="section-cards">
-                    {this.getSectionCards(this.props.location.state.sections)}
+                    {this.getSectionCards()}
                 </div>
             </div>
         )
