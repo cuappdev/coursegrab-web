@@ -39,6 +39,8 @@ class Navigator extends React.Component {
         localStorage.setItem('user', JSON.stringify(loggedInUser));
         localStorage.setItem('googleToken', token);
         this.setState({ isSignedIn: true })
+        // refresh page so other components are updated
+        window.location.reload()
       })
       .catch(error => {
         var errorCode = error.code
@@ -53,6 +55,8 @@ class Navigator extends React.Component {
     localStorage.removeItem('user')
     localStorage.removeItem('googleToken')
     this.setState({ isSignedIn: false })
+    // refresh page so other components are updated
+    window.location.reload()
   }
 
   render() {

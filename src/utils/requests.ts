@@ -65,7 +65,6 @@ const validateToken = async () => {
         if (user.sessionAuthorization.sessionExpiration <= Math.floor(Date.now() / 1000)) {
             try {
                 const session = await updateSession()
-                console.log(session)
                 const loggedInUser = {
                     email: user.email,
                     name: user.name,
