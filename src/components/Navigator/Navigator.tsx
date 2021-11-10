@@ -30,13 +30,14 @@ class Navigator extends React.Component {
         const user = result.additionalUserInfo as firebase.auth.AdditionalUserInfo
         const profile = user.profile as Record<string, string>
         const session = await initializeSession(token, profile.given_name, profile.family_name) as SessionAuthorization
-        const loggedInUser : User = {
+        const loggedInUser: User = {
           email: profile.email,
           name: profile.name,
           id: token,
           sessionAuthorization: session,
         }
         localStorage.setItem('user', JSON.stringify(loggedInUser));
+        localStorage.setItem('googleToken', token);
         this.setState({ isSignedIn: true })
       })
       .catch(error => {
@@ -50,6 +51,7 @@ class Navigator extends React.Component {
   signOut = () => {
     firebase.auth().signOut()
     localStorage.removeItem('user')
+    localStorage.removeItem('googleToken')
     this.setState({ isSignedIn: false })
   }
 

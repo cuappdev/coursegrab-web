@@ -18,8 +18,8 @@ api.interceptors.response.use((response: AxiosResponse) => {
     return response;
 });
 
-const get = async (url: string, headers?: any, params?: any) => {
-    const res = await api.get(url, params, headers)
+const get = async (url: string, params?: any) => {
+    const res = await api.get(url, params)
     const { success, data } = res.data
     if (success) return data
     throw Error(data)
@@ -32,12 +32,32 @@ const post = async (url: string, body?: any, headers?: any) => {
     throw Error(data)
 }
 
-export const setAuthHeader = (token: string | null) => {
-    const header = `Bearer ${token ? token : localStorage.getItem('accessToken')}`
-    axios.defaults.headers.common['Authorization'] = header
+const standardHeader = () => {
+    const userJson = localStorage.getItem('user')
+    if (userJson == null) {
+        return {}
+    }
+    else {
+        const user = JSON.parse(userJson)
+        return {
+            headers: { Authorization: `Bearer ${user.sessionAuthorization.sessionToken}` }
+        }
+    }
 }
 
-export const validateToken = async () => { }
+export const validateToken = async () => {
+    const userJson = localStorage.getItem('user')
+    if (userJson == null) {
+        // initialize session 
+    }
+    else {
+        const user = JSON.parse(userJson)
+        if (user.sessionAuthorization.sessionExpiration <= Date.now()) {
+            updateSession()
+            // reset local storage information
+        }
+    }
+}
 
 export const initializeSession = async (token: string, givenName: string, familyName: string) => {
     const body = {
@@ -47,21 +67,19 @@ export const initializeSession = async (token: string, givenName: string, family
         givenName,
         familyName
     }
-    return await post(`/session/initialize/v2/`, body)
+    return await post(`/session/initialize/v2/`, decamelizeKeys(body))
 }
 
-export const updateSession = async () => { }
+export const updateSession = async () => await post(`/session/update/`)
 
-export const getAllTrackedSections = async () => await get(`/users/tracking/`)
+export const getAllTrackedSections = async () => await get(`/users/tracking/`, standardHeader())
 
-export const searchCourses = async (query: string) => {
-    return await post(`/courses/search/`, { query: query })
-}
+export const searchCourses = async (query: string) => await post(`/courses/search/`, { query: query }, standardHeader())
 
-export const getCourseById = async (courseId: number) => await get(`/courses/${courseId}`)
+export const getCourseById = async (courseId: number) => await get(`/courses/${courseId}`, standardHeader())
 
-export const trackSection = async (courseId: number) => await post(`/sections/track/`, { course_id: courseId })
+export const trackSection = async (courseId: number) => await post(`/sections/track/`, { course_id: courseId }, standardHeader())
 
-export const untrackSection = async (courseId: number) => await post(`/sections/untrack/`, { course_id: courseId })
+export const untrackSection = async (courseId: number) => await post(`/sections/untrack/`, { course_id: courseId }, standardHeader())
 
 export const setNotificationMode = async () => { }
