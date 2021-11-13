@@ -2,6 +2,8 @@ import { AxiosResponse } from 'axios';
 import { hostUrl } from './constants';
 import { camelizeKeys, decamelizeKeys } from 'humps'
 
+import { User } from '../types'
+
 const axios = require('axios').default
 
 const api = axios.create({
@@ -32,49 +34,44 @@ const post = async (url: string, body?: any, headers?: any) => {
     throw Error(data)
 }
 
-const standardHeaders = () => {
+const getCurrentUser = () => {
     const userJson = localStorage.getItem('user')
-    if (userJson == null) {
-        return {}
-    }
-    else {
-        const user = JSON.parse(userJson)
-        return {
-            headers: { Authorization: `Bearer ${user.sessionAuthorization.sessionToken}` }
+    if (userJson != null) {
+        try {
+            return JSON.parse(userJson)
+        } catch (err) {
+            console.log(err)
+            return null
         }
     }
+    return null
+}
+
+const standardHeaders = () => {
+    const user: User = getCurrentUser()
+    return user ? { headers: { Authorization: `Bearer ${user.sessionAuthorization.sessionToken}` } } : {}
 }
 
 const updateHeaders = () => {
-    const userJson = localStorage.getItem('user')
-    if (userJson == null) {
-        return {}
-    }
-    else {
-        const user = JSON.parse(userJson)
-        return {
-            headers: { Authorization: `Bearer ${user.sessionAuthorization.updateToken}` }
-        }
-    }
+    const user: User = getCurrentUser()
+    return user ? { headers: { Authorization: `Bearer ${user.sessionAuthorization.updateToken}` } } : {}
 }
 
-const validateToken = async () => {
-    const userJson = localStorage.getItem('user')
-    if (userJson != null) {
-        const user = JSON.parse(userJson)
-        if (user.sessionAuthorization.sessionExpiration <= Math.floor(Date.now() / 1000)) {
-            try {
-                const session = await updateSession()
-                const loggedInUser = {
-                    email: user.email,
-                    name: user.name,
-                    id: user.id,
-                    sessionAuthorization: session,
-                }
-                localStorage.setItem('user', JSON.stringify(loggedInUser))
-            } catch (err) {
-                console.log(err)
+// Updates user session when the current session expires
+const refreshToken = async () => {
+    const user: User = getCurrentUser()
+    if (user != null && user.sessionAuthorization.sessionExpiration <= Math.floor(Date.now() / 1000)) {
+        try {
+            const session = await updateSession()
+            const loggedInUser = {
+                email: user.email,
+                name: user.name,
+                id: user.id,
+                sessionAuthorization: session,
             }
+            localStorage.setItem('user', JSON.stringify(loggedInUser))
+        } catch (err) {
+            console.log(err)
         }
     }
 }
@@ -93,27 +90,27 @@ export const initializeSession = async (token: string, givenName: string, family
 export const updateSession = async () => await post(`/session/update/`, {}, updateHeaders())
 
 export const getAllTrackedSections = async () => {
-    await validateToken()
+    await refreshToken()
     return await get(`/users/tracking/`, standardHeaders())
 }
 
 export const searchCourses = async (query: string) => {
-    await validateToken()
+    await refreshToken()
     return await post(`/courses/search/`, { query: query }, standardHeaders())
 }
 
 export const getCourseById = async (courseId: number) => {
-    await validateToken()
+    await refreshToken()
     return await get(`/courses/${courseId}`, standardHeaders())
 }
 
 export const trackSection = async (courseId: number) => {
-    await validateToken()
+    await refreshToken()
     return await post(`/sections/track/`, { course_id: courseId }, standardHeaders())
 }
 
 export const untrackSection = async (courseId: number) => {
-    await validateToken()
+    await refreshToken()
     return await post(`/sections/untrack/`, { course_id: courseId }, standardHeaders())
 }
 
