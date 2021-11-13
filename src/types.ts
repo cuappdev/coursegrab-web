@@ -36,7 +36,7 @@ export interface Course {
 
 export interface SessionAuthorization {
     notification: string
-    sessionExpiration: Date
+    sessionExpiration: number
     sessionToken: string
     updateToken: string
 }
