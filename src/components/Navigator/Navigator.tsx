@@ -1,18 +1,53 @@
 import React from 'react'
 
 import './Navigator.css'
-import firebase from "firebase/app"
-import "firebase/auth"
+// import firebase from "firebase/app"
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from '../../firebase/init';
 
 import SearchView from '../Search/SearchView'
 
 import { ReactComponent as CourseGrabLogo } from '../../Bell.svg';
-import { hostUrl, firebaseConfig } from '../../utils/constants'
 import { initializeSession } from '../../utils/requests';
 import { User, SessionAuthorization } from '../../types'
 
-firebase.initializeApp(firebaseConfig)
-var provider = new firebase.auth.GoogleAuthProvider()
+// const googleAuth = async () => {
+
+//   await signInWithPopup(auth, new GoogleAuthProvider()).then((res) => {
+//     const credential = GoogleAuthProvider.credentialFromResult(res);
+//     const token = credential?.idToken;
+//     // const accessToken = credential?.accessToken;
+//     const user = res.user;
+//     const displayName = (user.displayName || '').split(' ');
+//     let givenName, familyName;
+//     if (displayName.length > 1) {
+//       givenName = displayName[0];
+//       familyName = displayName[1];
+//     } else {
+//       givenName = displayName[0];
+//       familyName = '';
+//     }
+//     // const profile = user.profile as Record<string, string>
+//     const session = await initializeSession(token!, givenName, familyName) as SessionAuthorization
+//     const loggedInUser: User = {
+//       email: user.email || '',
+//       name: user.displayName || '',
+//       id: token || '',
+//       sessionAuthorization: session,
+//     }
+//     localStorage.setItem('user', JSON.stringify(loggedInUser));
+//     localStorage.setItem('googleToken', token);
+//     console.log(token);
+//     this.setState({ isSignedIn: true });
+
+//     window.location.reload();
+//   }).catch(error => {
+//     console.log(error);
+//   })
+
+// }
+
+// var provider = new firebase.auth.GoogleAuthProvider()
 
 class Navigator extends React.Component {
 
@@ -21,37 +56,44 @@ class Navigator extends React.Component {
   }
 
   openSigninPopup = () => {
-    firebase
-      .auth()
-      .signInWithPopup(provider)
+    signInWithPopup(auth, new GoogleAuthProvider())
       .then(async result => {
-        const credential = result.credential as firebase.auth.OAuthCredential
-        const token = credential.idToken as string
-        const user = result.additionalUserInfo as firebase.auth.AdditionalUserInfo
-        const profile = user.profile as Record<string, string>
-        const session = await initializeSession(token, profile.given_name, profile.family_name) as SessionAuthorization
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential?.idToken as string;
+        // const user = result.additionalUserInfo as firebase.auth.AdditionalUserInfo
+        const user = result.user;
+        const displayName = (user.displayName || '').split(' ');
+        let givenName, familyName;
+        if (displayName.length > 1) {
+          givenName = displayName[0];
+          familyName = displayName[1];
+        } else {
+          givenName = displayName[0];
+          familyName = '';
+        }
+        console.log("1: got token");
+        const session = await initializeSession(token, givenName, familyName) as SessionAuthorization
         const loggedInUser: User = {
-          email: profile.email,
-          name: profile.name,
+          email: user.email || '',
+          name: user.displayName || '',
           id: token,
           sessionAuthorization: session,
         }
+        console.log("2: got user");
         localStorage.setItem('user', JSON.stringify(loggedInUser));
         localStorage.setItem('googleToken', token);
         this.setState({ isSignedIn: true })
         // refresh page so other components are updated
+        console.log("3: about to reload ");
         window.location.reload()
       })
       .catch(error => {
-        var errorCode = error.code
-        var errorMessage = error.message
-        var email = error.email
-        var credential = error.credential
+        console.log(error);
       })
   }
 
   signOut = () => {
-    firebase.auth().signOut()
+    auth.signOut()
     localStorage.removeItem('user')
     localStorage.removeItem('googleToken')
     this.setState({ isSignedIn: false })
@@ -69,7 +111,7 @@ class Navigator extends React.Component {
             <SearchView />
           </div>
           <div className="nav-right">
-            <a onClick={() => this.state.isSignedIn ? this.signOut() : this.openSigninPopup()}> {this.state.isSignedIn ? "Sign Out" : "Sign In"}</a>
+            <a href="#" onClick={() => this.state.isSignedIn ? this.signOut() : this.openSigninPopup()}> {this.state.isSignedIn ? "Sign Out" : "Sign In"}</a>
           </div>
         </div>
       </div>
