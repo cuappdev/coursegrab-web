@@ -16,24 +16,24 @@ export interface DetailCourseViewProps extends RouteComponentProps<{ id: string 
 }
 
 export interface DetailCourseViewPropsLocation {
-    state: any,
-    pathname: any,
-    search: any,
-    hash: any
+    state: Course,
+    pathname: string,
+    search: string,
+    hash: string
 }
 
 export interface DetailCourseViewPropsMatch {
     params: DetailCourseViewPropsMatchParams,
-    isExact: any,
-    path: any,
-    url: any
+    isExact: boolean,
+    path: string,
+    url: string
 }
 
 export interface DetailCourseViewPropsMatchParams {
     id: string
 }
 
-class DetailCourseView extends React.Component<DetailCourseViewProps, {}> {
+class DetailCourseView extends React.Component<DetailCourseViewProps> {
 
     state: TrackedCoursesViewState = {
         title: "",

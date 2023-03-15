@@ -9,7 +9,7 @@ type TrackedCoursesViewState = {
   awaitingSections: Section[]
 }
 
-class TrackedCoursesView extends React.Component<{}, TrackedCoursesViewState> {
+class TrackedCoursesView extends React.Component {
   state: TrackedCoursesViewState = {
     availableSections: [],
     awaitingSections: []

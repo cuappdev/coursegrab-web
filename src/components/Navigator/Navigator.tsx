@@ -69,7 +69,7 @@ class Navigator extends React.Component {
             <SearchView />
           </div>
           <div className="nav-right">
-            <a href="#" onClick={() => this.state.isSignedIn ? this.signOut() : this.openSigninPopup()}> {this.state.isSignedIn ? "Sign Out" : "Sign In"}</a>
+            <button className="sign-in-out-button" onClick={() => this.state.isSignedIn ? this.signOut() : this.openSigninPopup()}> {this.state.isSignedIn ? "Sign Out" : "Sign In"}</button>
           </div>
         </div>
       </div>

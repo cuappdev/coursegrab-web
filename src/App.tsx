@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import { BrowserRouter, Route, Switch, RouteComponentProps } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Footer from './components/Footer/Footer'
 import Navigator from './components/Navigator/Navigator'
@@ -9,8 +9,8 @@ import DetailCourseView from './components/DetailCourse/DetailCourseView'
 import { DetailCourseViewProps } from './components/DetailCourse/DetailCourseView'
 import TrackedCoursesView from './components/TrackedCourses/TrackedCoursesView'
 
-const TrackedCoursesViewWrapper: React.FC<RouteComponentProps> = (props) => {
-  return <TrackedCoursesView {...props} />;
+const TrackedCoursesViewWrapper = () => {
+  return <TrackedCoursesView />;
 };
 
 const DetailCourseViewWrapper: React.FC<DetailCourseViewProps> = (props) => {
