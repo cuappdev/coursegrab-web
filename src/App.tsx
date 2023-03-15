@@ -6,14 +6,15 @@ import Footer from './components/Footer/Footer'
 import Navigator from './components/Navigator/Navigator'
 import SearchView from './components/Search/SearchView'
 import DetailCourseView from './components/DetailCourse/DetailCourseView'
+import { DetailCourseViewProps } from './components/DetailCourse/DetailCourseView'
 import TrackedCoursesView from './components/TrackedCourses/TrackedCoursesView'
 
 const TrackedCoursesViewWrapper: React.FC<RouteComponentProps> = (props) => {
   return <TrackedCoursesView {...props} />;
 };
 
-const DetailCourseViewWrapper: React.FC<RouteComponentProps> = (props) => {
-  return <TrackedCoursesView {...props} />;
+const DetailCourseViewWrapper: React.FC<DetailCourseViewProps> = (props) => {
+  return <DetailCourseView {...props} />;
 };
 
 function App() {
