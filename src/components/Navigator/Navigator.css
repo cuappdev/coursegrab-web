@@ -41,3 +41,12 @@
   flex-direction: row;
   align-items: flex-start;
 }
+
+.sign-in-out-button {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 18px;
+  color: #FFFFFF;
+  background-color: #050505;
+  border: none;
+}

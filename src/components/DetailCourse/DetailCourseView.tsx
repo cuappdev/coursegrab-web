@@ -1,10 +1,8 @@
 import React from 'react'
-
+import { RouteComponentProps } from "react-router-dom";
 import './DetailCourseView.css'
-
 import { Course, Section } from '../../types'
 import { getCourseById } from '../../utils/requests';
-
 import DetailSectionCard from './DetailCourseCard'
 
 type TrackedCoursesViewState = {
@@ -12,21 +10,27 @@ type TrackedCoursesViewState = {
     sections: Section[]
 }
 
-export interface DetailCourseViewProps {
+export interface DetailCourseViewProps extends RouteComponentProps<{ id: string }> {
     location: DetailCourseViewPropsLocation
     match: DetailCourseViewPropsMatch
 }
 
 export interface DetailCourseViewPropsLocation {
-    state: any
+    state: Course,
+    pathname: string,
+    search: string,
+    hash: string
 }
 
 export interface DetailCourseViewPropsMatch {
-    params: DetailCourseViewPropsMatchParams
+    params: DetailCourseViewPropsMatchParams,
+    isExact: boolean,
+    path: string,
+    url: string
 }
 
 export interface DetailCourseViewPropsMatchParams {
-    id: number
+    id: string
 }
 
 class DetailCourseView extends React.Component<DetailCourseViewProps> {
@@ -46,7 +50,7 @@ class DetailCourseView extends React.Component<DetailCourseViewProps> {
             })
         } catch {
             try {
-                const course = await getCourseById(this.props.match.params.id)
+                const course = await getCourseById(parseInt(this.props.match.params.id))
                 this.setState({
                     title: course.title,
                     sections: course.sections

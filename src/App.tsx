@@ -2,11 +2,20 @@ import React from 'react'
 import './App.css'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import DetailCourseView from './components/DetailCourse/DetailCourseView'
 import Footer from './components/Footer/Footer'
 import Navigator from './components/Navigator/Navigator'
 import SearchView from './components/Search/SearchView'
+import DetailCourseView from './components/DetailCourse/DetailCourseView'
+import { DetailCourseViewProps } from './components/DetailCourse/DetailCourseView'
 import TrackedCoursesView from './components/TrackedCourses/TrackedCoursesView'
+
+const TrackedCoursesViewWrapper = () => {
+  return <TrackedCoursesView />;
+};
+
+const DetailCourseViewWrapper: React.FC<DetailCourseViewProps> = (props) => {
+  return <DetailCourseView {...props} />;
+};
 
 function App() {
   return (
@@ -17,8 +26,8 @@ function App() {
           <SearchView />
         </div>
         <Switch>
-          <Route path="/" exact component={TrackedCoursesView} />
-          <Route path="/courses/:id" component={DetailCourseView} />
+          <Route path="/" exact component={TrackedCoursesViewWrapper} />
+          <Route path="/courses/:id" component={DetailCourseViewWrapper} />
           <Route render={() => <h1>Page Not Found</h1>} />
         </Switch>
         <Footer />

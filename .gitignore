@@ -10,6 +10,7 @@
 
 # environment
 .env
+.envrc
 
 # testing
 /coverage

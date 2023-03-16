@@ -84,7 +84,7 @@ export const initializeSession = async (token: string, givenName: string, family
         givenName,
         familyName
     }
-    return await post(`/session/initialize/v2/`, decamelizeKeys(body))
+    return await post(`/session/initialize/`, decamelizeKeys(body))
 }
 
 export const updateSession = async () => await post(`/session/update/`, {}, updateHeaders())

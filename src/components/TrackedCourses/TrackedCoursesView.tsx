@@ -1,11 +1,7 @@
 import React from 'react'
-
 import './TrackedCoursesView.css'
-
 import { getAllTrackedSections } from '../../utils/requests';
-
 import { Section, Sections, Status } from '../../types'
-
 import TrackedCourseCard from './TrackedCourseCard'
 
 type TrackedCoursesViewState = {
@@ -38,8 +34,8 @@ class TrackedCoursesView extends React.Component {
   }
 
   updateSections = async (courseId: number) => {
-    const updatedAvailableSections = this.state.availableSections.filter(section => section.catalogNum != courseId)
-    const updatedAwaitingSections = this.state.awaitingSections.filter(section => section.catalogNum != courseId)
+    const updatedAvailableSections = this.state.availableSections.filter(section => section.catalogNum !== courseId)
+    const updatedAwaitingSections = this.state.awaitingSections.filter(section => section.catalogNum !== courseId)
     this.setState({
       availableSections: updatedAvailableSections,
       awaitingSections: updatedAwaitingSections
