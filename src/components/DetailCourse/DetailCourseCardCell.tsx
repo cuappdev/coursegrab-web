@@ -12,6 +12,7 @@ export interface DetailSectionCellProps {
 const DetailSection: React.FunctionComponent<DetailSectionCellProps> = ({
   section,
 }) => {
+  const isSignedIn = !!localStorage.getItem("user");
   const [isTracking, setIsTracking] = useState(section.isTracking);
 
   const statusIcon = (status: Status) => {
@@ -38,6 +39,10 @@ const DetailSection: React.FunctionComponent<DetailSectionCellProps> = ({
   };
 
   const trackClicked = async () => {
+    if (!isSignedIn) {
+      alert("Please sign in to track a section!");
+      return;
+    }
     try {
       const result = await trackSection(section.catalogNum);
       if (result.catalogNum === section.catalogNum) setIsTracking(true);
