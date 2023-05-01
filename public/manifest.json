@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Coursegrab",
+  "name": "Coursegrab by AppDev",
+  "static_url": "https://coursegrab.cornellappdev.com",
   "icons": [
     {
       "src": "favicon.ico",
